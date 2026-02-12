@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredient Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+
+    <nav>
+        <div class="logo">Resipee</div>
+
+        <div class="nav-bar">
+            <a href="resep.html">Home</a>
+            <a href="calculator.html" class="active">Calculator</a>
+        </div>
+
+        <div class="nav-right">
+            <button id="dark-toggle">Dark Mode</button>
+        </div>
+    </nav>
+
+
+ <main style="margin-right:50px; margin-left:50px; margin-bottom:50px" class="calculator-layout">
+
+    <h1>Ingredient Calculator</h1>
+    <p>Enter how many portions you want to cook.</p>
+
+    <div class="calculator-grid">
+
+
+        <div class="calculator-card">
+            <h3>🍔 Burger</h3>
+
+            <label>Burgers:</label>
+            <input type="number" id="burgerQty" min="1" value="1">
+
+            <button onclick="calcBurger()">Calculate</button>
+            <div class="result" id="burgerResult"></div>
+        </div>
+
+
+        <div class="calculator-card">
+            <h3>🍝 Spaghetti</h3>
+
+            <label>Portions:</label>
+            <input type="number" id="spaghettiQty" min="1" value="1">
+
+            <button onclick="calcSpaghetti()">Calculate</button>
+            <div class="result" id="spaghettiResult"></div>
+        </div>
+
+
+        <div class="calculator-card">
+            <h3>🐟 Fish & Chips</h3>
+
+            <label>Portions:</label>
+            <input type="number" id="fishQty" min="1" value="1">
+
+            <button onclick="calcFish()">Calculate</button>
+            <div class="result" id="fishResult"></div>
+        </div>
+
+    </div>
+
+</main>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

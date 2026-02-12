@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Western Food Recipes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <div class="logo">Resipee</div>
+
+        <div class="nav-bar">
+            <a href="#Recipes">Recipes</a>
+            <a href="resep.html" class="active">Home</a>
+            <a href="calculator.html">Calculator</a>
+            <a href="#about-us">About us</a>
+        </div>
+
+        <div class="nav-right">
+            <button id="dark-toggle">Dark Mode</button>
+        </div>
+    </nav>
+
+    <main class="hero">
+        
+        <div class="content-left">
+            <h1>WESTERN <br> FOOD RECIPES</h1>
+            <p>
+                Discover easy and delicious Western food recipes starting from juicy burgers
+                and creamy pasta to classic steak and crispy fish & chips.
+            </p>
+            <a href="#Recipes">
+                <button class="btn-main">View Recipes</button>
+            </a>
+        </div>
+
+        <div class="content-right">
+            <div class="recipe-slider">
+                <a href="recipe-burger.html" class="card-link">
+                    <div class="card active">
+                        <div class="card-img">
+                            <img src="https://pngimg.com/uploads/burger_sandwich/burger_sandwich_PNG4135.png" alt="Burger">
+                        </div>
+                        <div class="card-info">
+                            <h3>Burger</h3>
+                            <p>20 mins | Easy</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="recipe-fish.html" class="card-link">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://www.rawpixel.com/image/15496053/png-fish-and-chips-plate-food-seafood" alt="Fish n Chips">
+                        </div>
+                        <div class="card-info">
+                            <h3>Fish n Chips</h3>
+                            <p>25 mins | Medium</p>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="recipe-spaghetti.html" class="card-link">
+                    <div class="card">
+                        <div class="card-img">
+                            <img src="https://www.freepik.com/free-photos-vectors/spaghetti-png" alt="Spaghetti">
+                        </div>
+                        <div class="card-info">
+                            <h3>Spaghetti</h3>
+                            <p>30 mins | Easy</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    
+    </main>
+
+    <section class="recipe-list-section" id="Recipes">
+        <h2 class="section-title">Western Collection</h2>
+        
+        <div class="recipe-grid" id="recipeGrid"></div>
+    
+        <div class="view-all-container">
+            <button id="showMoreBtn" class="btn-secondary">All Recipe</button>
+        </div>
+    </section>
+    
+    <hr style="border: none; margin: 50px 0;">
+    
+    <div class="about-section" id="about-us">
+
+    </div> <hr style="border: none; margin: 50px 0;"> <div class="about-section" id="about-us">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?q=80&w=1000" alt="Cooking Together">
+                <div class="experience-badge">
+                    <span>EST.</span>
+                    <h2>2026</h2>
+                </div>
+            </div>
+            
+            <div class="about-text">
+                <span class="sub-title">Tentang Kami</span>
+                <h2>Berawal Dari Belajar Coding</h2>
+                <p>
+                    Resipee adalah proyek kreatif yang dibuat untuk membantu orang-orang yang ingin menemukan resep masakan Barat yang simpel, murah, namun tetap terlihat mewah. 
+                </p>
+                <p>
+                    Kami percaya bahwa memasak bukan hanya soal rasa, tapi juga cara kita mengekspresikan diri dan berbagi kebahagiaan dengan orang lain.
+                </p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <h3>50+</h3>
+                        <p>Resep Pilihan</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>10+</h3>
+                        <p>Kategori</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+
+<script src="script.js"></script>
+</body>
+</html>
