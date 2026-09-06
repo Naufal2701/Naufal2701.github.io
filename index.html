@@ -253,7 +253,7 @@
   </div>
   <div class="detail-card about-card" id="aboutCard">
     <div class="detail-body">
-      <p class="detail-short">(Tulis deskripsi singkat tentang kelompok taaruf kalian di sini — asal mula, tujuan, atau kesan selama proses taaruf berlangsung.)</p>
+      <p class="detail-short">(kelompok taaruf singkat)</p>
       <div class="member-tags" id="aboutTags"></div>
     </div>
     <div class="detail-media landscape">
@@ -261,7 +261,7 @@
       <button class="btn-outline more-only" onclick="toggleCard(this)">Lihat Selengkapnya ▾</button>
     </div>
     <div class="detail-extra">
-      <p>(Tulis cerita panjang perjalanan kelompok kalian di sini — bagaimana proses taaruf berjalan, hal berkesan, atau harapan ke depan.)</p>
+      <p>(kelompok taaruf panjang)</p>
       <button class="btn-outline" onclick="toggleCard(this)">Lebih Sedikit ▴</button>
     </div>
   </div>
@@ -351,14 +351,14 @@ const MEMBERS = [
 // members: {name tampil di jadwal, id anggota bila cocok dengan struktur komisi di atas / null bila belum ditemukan}
 const TAARUF = [
   { no:1,  kelompok:'69', date:'Minggu, 30 Agustus 2026', time:'18.15 s.d 19.15 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mas Kenzie',id:'m20'},{name:'Mba Acit',id:'m22'},{name:'Mba Asyifa',id:'m30'}] },
-  { no:2,  kelompok:'69', date:'Senin, 31 Agustus 2026',  time:'14.40 s.d 15.40 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mas Gibran',id:'m14'},{name:'Mba Alvyta',id:'m33'},{name:'Mba Jia',id:null}] },
-  { no:3,  kelompok:'69', date:'Senin, 31 Agustus 2026',  time:'15.50 s.d 16.50 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mas Wijaya',id:'m13'},{name:'Mas Kevin',id:'m29'},{name:'Mas Langit',id:'m27'}] },
+  { no:2,  kelompok:'69', date:'Senin, 31 Agustus 2026',  time:'14.40 s.d 15.40 WIB', mode:'Offline', place:'Gazebo Depan UKS', members:[{name:'Mas Gibran',id:'m14'},{name:'Mba Alvyta',id:'m33'},{name:'Mba Jia',id:null}] },
+  { no:3,  kelompok:'69', date:'Senin, 31 Agustus 2026',  time:'15.50 s.d 16.50 WIB', mode:'Offline', place:'Gazebo Depan UKS', members:[{name:'Mas Wijaya',id:'m13'},{name:'Mas Kevin',id:'m29'},{name:'Mas Langit',id:'m27'}] },
   { no:4,  kelompok:'69', date:'Senin, 31 Agustus 2026',  time:'19.00 s.d 20.00 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mba Delila',id:'m15'},{name:'Mba Ima',id:'m28'}] },
-  { no:5,  kelompok:'69', date:'Kamis, 3 September 2026', time:'16.00 s.d 17.00 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mas Dio',id:'m21'},{name:'Mba Zeta',id:null},{name:'Mba Hafizha',id:'m06'}] },
+  { no:5,  kelompok:'69', date:'Kamis, 3 September 2026', time:'16.00 s.d 17.00 WIB', mode:'Offline', place:'Pelataran Koperasi', members:[{name:'Mas Dio',id:'m21'},{name:'Mba Zeta',id:null},{name:'Mba Hafizha',id:'m06'}] },
   { no:6,  kelompok:'69', date:'Kamis, 3 September 2026', time:'19.00 s.d 20.00 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mba Destri',id:null},{name:'Mba Theresia',id:null},{name:'Mba Muna',id:'m07'}] },
-  { no:7,  kelompok:'69', date:'Sabtu, 5 September 2026', time:'08.00 s.d 09.00 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mba Ferlita',id:'m35'},{name:'Mba Vava',id:null}] },
-  { no:8,  kelompok:'68', date:'Sabtu, 5 September 2026', time:'09.20 s.d 10.40 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mas Tegar',id:'m37'},{name:'Mba Nayla',id:'m02'}] },
-  { no:9,  kelompok:'68', date:'Sabtu, 5 September 2026', time:'13.00 s.d 14.00 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mba Aisyah',id:'m10'},{name:'Mba Aretha',id:'m08'}] },
+  { no:7,  kelompok:'69', date:'Sabtu, 5 September 2026', time:'08.00 s.d 09.00 WIB', mode:'Offline', place:'Gazebo Depan UKS', members:[{name:'Mba Ferlita',id:'m35'},{name:'Mba Vava',id:null}] },
+  { no:8,  kelompok:'68', date:'Sabtu, 5 September 2026', time:'09.20 s.d 10.40 WIB', mode:'Offline', place:'Gazebo Depan UKS', members:[{name:'Mas Tegar',id:'m37'},{name:'Mba Nayla',id:'m02'}] },
+  { no:9,  kelompok:'68', date:'Sabtu, 5 September 2026', time:'13.00 s.d 14.00 WIB', mode:'Offline', place:'Gazebo Depan UKS', members:[{name:'Mba Aisyah',id:'m10'},{name:'Mba Aretha',id:'m08'}] },
   { no:10, kelompok:'68', date:'Minggu, 6 September 2026',time:'08.00 s.d 09.00 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mas Habiib',id:'m38'},{name:'Mas Jovan',id:null}] },
   { no:11, kelompok:'69', date:'Minggu, 6 September 2026',time:'13.00 s.d 14.00 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mas Lionel',id:'m04'}] },
 ];
@@ -389,13 +389,13 @@ function memberDetailCard(m){
       <div class="detail-body">
         <span class="eyebrow">${m.jabatan} · ${m.kelas}</span>
         <h3>${m.name}</h3>
-        <p class="detail-short">(Tulis karakteristik singkat ${firstName} di sini.)</p>
+        <p class="detail-short">(singkat)</p>
         <div class="detail-actions">
           ${taarufBtn}
           <button class="btn-outline more-only" onclick="toggleCard(this)">Selengkapnya ▾</button>
         </div>
         <div class="detail-extra">
-          <p>(Tulis cerita atau perkenalan lengkap ${firstName} di sini.)</p>
+          <p>(panjang)</p>
           <button class="btn-outline" onclick="toggleCard(this)">Lebih Sedikit ▴</button>
         </div>
       </div>
@@ -453,7 +453,7 @@ function taarufDetailCard(t){
   ).join('');
   return `
     <div class="detail-card" id="taaruf-${t.no}">
-      <div class="detail-media landscape"><div class="ph-placeholder">FOTO BERSAMA<br>SESI TAARUF</div></div>
+      <div class="detail-media landscape"><div class="ph-placeholder">FOTO<br>TAARUF</div></div>
       <div class="detail-body">
         <span class="eyebrow">TAARUF KE-${String(t.no).padStart(2,'0')} · KELOMPOK ${t.kelompok}</span>
         <h3>${t.date}</h3>
