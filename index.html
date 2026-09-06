@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan Taaruf MPK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F5F1; --bg-alt:#E9E7DF; --ink:#121210; --ink-muted:#6B6A63; --line:#D9D7CD; --card-bg:#FFFFFF;
+  }
+  html.dark{
+    --bg:#0A0A09; --bg-alt:#171613; --ink:#F3F2ED; --ink-muted:#9B998F; --line:#2B2A26; --card-bg:#121210;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink); font-family:'Inter', sans-serif;
+    transition:background .4s ease, color .4s ease; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  ::selection{ background:var(--ink); color:var(--bg); }
+  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:500; margin:0; line-height:1.05; letter-spacing:-0.01em; }
+  a{ color:inherit; text-decoration:none; }
+  button{ font-family:inherit; }
+
+  /* ---------- NAV : solid background, always legible ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:80;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px clamp(20px,4vw,56px);
+    background:var(--bg); color:var(--ink);
+    border-bottom:1px solid var(--line);
+    transition:background .4s ease, color .4s ease, border-color .4s ease;
+  }
+  .nav-brand{ font-size:13px; letter-spacing:.12em; font-weight:500; display:flex; gap:10px; align-items:baseline; }
+  .nav-brand span{ color:var(--ink-muted); }
+  .nav-links{ display:flex; gap:30px; align-items:center; }
+  .nav-links a{ font-size:13px; letter-spacing:.06em; opacity:.85; }
+  .nav-links a:hover{ opacity:1; }
+  .nav-right{ display:flex; align-items:center; gap:22px; }
+
+  .toggle{
+    width:46px; height:26px; border-radius:20px; background:rgba(128,128,128,.2);
+    position:relative; cursor:pointer; border:1px solid var(--ink); flex-shrink:0;
+  }
+  .toggle::after{
+    content:''; position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%;
+    background:var(--ink); transition:transform .3s ease;
+  }
+  html.dark .toggle::after{ transform:translateX(20px); }
+
+  .burger{ width:30px; height:20px; position:relative; cursor:pointer; background:none; border:none; padding:0; flex-shrink:0; }
+  .burger span{ position:absolute; left:0; width:100%; height:1.5px; background:var(--ink); transition:transform .3s ease, opacity .3s ease, top .3s ease; }
+  .burger span:nth-child(1){ top:0; }
+  .burger span:nth-child(2){ top:9px; }
+  .burger span:nth-child(3){ top:18px; }
+  .burger.open span:nth-child(1){ top:9px; transform:rotate(45deg); }
+  .burger.open span:nth-child(2){ opacity:0; }
+  .burger.open span:nth-child(3){ top:9px; transform:rotate(-45deg); }
+
+  /* ---------- FULLSCREEN MENU : theme-matched, blur fade-in ---------- */
+  .menu-overlay{
+    position:fixed; inset:0; z-index:90;
+    background:var(--bg); color:var(--ink);
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:30px clamp(20px,4vw,56px) 44px;
+    opacity:0; visibility:hidden; pointer-events:none;
+    filter:blur(22px); transform:translateX(-24px);
+    transition:opacity .5s ease, filter .5s ease, transform .5s ease, visibility 0s linear .5s, background .4s ease, color .4s ease;
+  }
+  .menu-overlay.open{
+    opacity:1; visibility:visible; pointer-events:auto;
+    filter:blur(0); transform:translateX(0);
+    transition:opacity .5s ease, filter .5s ease, transform .5s ease, background .4s ease, color .4s ease;
+  }
+  .menu-top{ display:flex; justify-content:space-between; align-items:center; }
+  .menu-close{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+    background:none; color:inherit; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px;
+  }
+  .menu-list{ margin:auto; display:flex; flex-direction:column; align-items:flex-start; gap:6px; }
+  .menu-list a{ font-family:'Fraunces', serif; font-weight:500; font-size:clamp(36px,7vw,72px); opacity:.55; transition:opacity .25s ease; }
+  .menu-list a:hover{ opacity:1; }
+  .menu-foot{ font-size:12px; letter-spacing:.04em; color:var(--ink-muted); }
+
+  section{ padding:0 clamp(20px,4vw,56px); }
+  .eyebrow{ font-size:12px; letter-spacing:.1em; color:var(--ink-muted); font-family:'Inter',sans-serif; font-weight:500; }
+
+  /* ---------- HOME ---------- */
+  .hero{ min-height:82vh; display:flex; flex-direction:column; justify-content:center; position:relative; padding-top:100px; }
+  .hero h1{ font-size:clamp(40px, 7.5vw, 96px); max-width:18ch; }
+  .hero-sub{ margin-top:22px; max-width:52ch; font-size:17px; line-height:1.65; color:var(--ink-muted); }
+  .hero-meta{ margin-top:44px; display:flex; gap:44px; flex-wrap:wrap; }
+  .hero-meta div{ font-size:13px; color:var(--ink-muted); }
+  .hero-meta strong{ display:block; font-family:'Fraunces',serif; font-size:19px; color:var(--ink); font-weight:500; margin-top:4px; }
+
+  /* ---------- PINNED PHOTO FRAME ---------- */
+  .frame-pin{ position:relative; }
+  .frame-sticky{ position:sticky; top:0; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .frame-label{ font-size:12px; letter-spacing:.1em; color:var(--ink-muted); margin-bottom:22px; }
+  .frame-box{ position:relative; width:min(64vw,440px); aspect-ratio:4/5; border:10px solid var(--ink); background:#000; overflow:hidden; box-shadow:0 30px 70px rgba(0,0,0,.25); }
+  .frame-photo{
+    position:absolute; inset:0; background:var(--bg-alt); filter:grayscale(1);
+    display:flex; align-items:center; justify-content:center; font-size:12px; letter-spacing:.1em; color:#8a8a86;
+    transform:translateY(105%); transition:transform .5s cubic-bezier(.65,0,.35,1);
+  }
+  .frame-photo.active{ transform:translateY(0); }
+  .frame-photo.prev{ transform:translateY(-105%); }
+  .frame-progress{ margin-top:22px; font-size:12px; letter-spacing:.1em; color:var(--ink-muted); display:flex; gap:10px; align-items:center; }
+  .frame-progress .bar{ width:120px; height:2px; background:var(--line); position:relative; }
+  .frame-progress .bar em{ position:absolute; left:0; top:0; height:100%; background:var(--ink); font-style:normal; transition:width .3s ease; }
+
+  /* ---------- SECTION HEADER ---------- */
+  .sec-head{ padding:90px 0 40px; display:flex; align-items:baseline; gap:20px; flex-wrap:wrap; border-bottom:1px solid var(--line); margin-bottom:50px; }
+  .sec-head h2{ font-size:clamp(30px,4.4vw,50px); }
+  .sec-head p{ font-size:15px; color:var(--ink-muted); max-width:46ch; margin:10px 0 0; flex-basis:100%; }
+  .sec-head.first{ padding-top:60px; }
+
+  /* ---------- SHARED DETAIL CARD ---------- */
+  .detail-card{
+    display:grid; grid-template-columns:280px 1fr; gap:30px;
+    padding:32px 0; border-bottom:1px solid var(--line); scroll-margin-top:110px;
+  }
+  .detail-media{ background:var(--bg-alt); filter:grayscale(1); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:14px; }
+  .detail-media.portrait{ aspect-ratio:3/4; }
+  .detail-media.landscape{ aspect-ratio:16/10; }
+  .ph-placeholder{ font-size:11px; letter-spacing:.1em; color:#8a8a86; text-align:center; }
+  .detail-body{ display:flex; flex-direction:column; gap:10px; min-width:0; }
+  .detail-body h3{ font-size:23px; }
+  .detail-short{ font-size:15px; line-height:1.65; color:var(--ink-muted); margin:0; }
+  .detail-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; }
+  .btn-outline{
+    font-size:12px; letter-spacing:.05em; padding:9px 16px; border:1px solid var(--ink);
+    background:none; color:var(--ink); cursor:pointer; transition:background .2s ease, color .2s ease; white-space:nowrap;
+  }
+  .btn-outline:hover{ background:var(--ink); color:var(--bg); }
+  .detail-card.expanded .more-only{ display:none; }
+  .detail-extra{
+    grid-column:1/-1; max-height:0; opacity:0; overflow:hidden;
+    transition:max-height .45s ease, opacity .4s ease, margin .45s ease;
+  }
+  .detail-card.expanded .detail-extra{ max-height:700px; opacity:1; margin-top:16px; }
+  .detail-extra p{ font-size:15px; line-height:1.7; color:var(--ink-muted); margin:0 0 16px; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top:2px; }
+  .chip{ font-size:12px; padding:6px 12px; border:1px solid var(--line); color:var(--ink-muted); }
+  .chip-btn{ font-size:12px; padding:6px 12px; border:1px solid var(--ink); background:none; color:var(--ink); cursor:pointer; }
+  .chip-btn:hover{ background:var(--ink); color:var(--bg); }
+
+  .list-stack{ display:flex; flex-direction:column; margin-bottom:50px; }
+
+  /* ---------- ABOUT US ---------- */
+  .about-card{ grid-template-columns:1fr 380px; }
+  .about-card .detail-media{ display:flex; flex-direction:column; justify-content:flex-end; align-items:stretch; gap:0; }
+  .about-card .detail-media .ph-placeholder{ flex:1; display:flex; align-items:center; justify-content:center; }
+  .about-card .detail-media .btn-outline{ margin-top:14px; align-self:flex-start; }
+  .member-tags{ display:flex; flex-wrap:wrap; gap:8px 10px; margin-top:16px; }
+
+  /* ---------- KOMISI GRID ---------- */
+  .komisi-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:60px; }
+  .komisi-box{
+    background:var(--bg); padding:34px 26px; cursor:pointer; display:flex; flex-direction:column; gap:12px;
+    text-align:left; border:none; color:var(--ink); min-height:170px; justify-content:space-between; transition:background .25s ease;
+  }
+  .komisi-box:hover{ background:var(--bg-alt); }
+  .komisi-box .num{ font-size:11px; color:var(--ink-muted); letter-spacing:.08em; }
+  .komisi-box h3{ font-size:21px; line-height:1.2; }
+  .komisi-box span.count{ font-size:12px; color:var(--ink-muted); }
+
+  .back-btn{ display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--ink-muted); cursor:pointer; margin-bottom:28px; background:none; border:none; padding:0; }
+  .back-btn:hover{ color:var(--ink); }
+
+  /* ---------- SEARCH ---------- */
+  .search-wrap{ display:flex; justify-content:center; padding-bottom:100px; }
+  .search-box{ display:flex; align-items:center; gap:10px; border:1px solid var(--line); padding:12px 18px; width:min(100%,420px); }
+  .search-box input{ border:none; background:none; outline:none; color:var(--ink); font-family:'Inter',sans-serif; font-size:14px; width:100%; }
+  .search-box input::placeholder{ color:var(--ink-muted); }
+  .search-box svg{ flex-shrink:0; opacity:.5; }
+  .empty-note{ text-align:center; color:var(--ink-muted); font-size:14px; padding:20px 0 50px; }
+
+  .flash{ animation:flashPulse 1.5s ease; }
+  @keyframes flashPulse{ 0%{ box-shadow:inset 0 0 0 3px var(--ink); } 100%{ box-shadow:inset 0 0 0 0 transparent; } }
+
+  footer{ border-top:1px solid var(--line); padding:36px clamp(20px,4vw,56px); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--ink-muted); }
+
+  @media (max-width:800px){
+    .nav-links{ display:none; }
+    .detail-card, .about-card{ grid-template-columns:1fr !important; }
+  }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; scroll-behavior:auto !important; } }
+  :focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">MPK <span>/ TAARUF 2026</span></div>
+  <div class="nav-links">
+    <a href="#home">BERANDA</a>
+    <a href="#about-us">TENTANG KAMI</a>
+    <a href="#komisi">KOMISI</a>
+    <a href="#taaruf">TAARUF</a>
+  </div>
+  <div class="nav-right">
+    <div class="toggle" id="themeToggle" role="button" aria-label="Ganti mode terang/gelap" tabindex="0"></div>
+    <button class="burger" id="burgerBtn" aria-label="Buka menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="menu-overlay" id="menuOverlay">
+  <div class="menu-top">
+    <div class="nav-brand">MPK <span>/ TAARUF 2026</span></div>
+    <button class="menu-close" id="menuCloseBtn" aria-label="Tutup menu">✕</button>
+  </div>
+  <div class="menu-list">
+    <a href="#home" class="menu-link">Beranda</a>
+    <a href="#about-us" class="menu-link">Tentang Kami</a>
+    <a href="#komisi" class="menu-link">Komisi</a>
+    <a href="#taaruf" class="menu-link">Taaruf</a>
+  </div>
+  <div class="menu-foot">Laporan Taaruf Musyawarah Perwakilan Kelas — 2026</div>
+</div>
+
+<!-- HOME -->
+<section class="hero" id="home">
+  <span class="eyebrow">LAPORAN KEGIATAN</span>
+  <h1 style="margin-top:16px;">Taaruf Majelis<br>Perwakilan Kelas</h1>
+  <p class="hero-sub">Dokumentasi proses taaruf calon anggota MPK — mengenal pribadi, komisi, dan giliran perkenalan setiap mas dan mba sebelum resmi bertugas.</p>
+  <div class="hero-meta">
+    <div>Kelompok<strong>5</strong></div>
+    <div>Periode<strong>2026 / 2028</strong></div>
+    <div>Jumlah Taaruf<strong id="totalTaarufStat">—</strong></div>
+  </div>
+</section>
+
+<!-- PINNED PHOTO FRAME -->
+<div class="frame-pin" id="framePin">
+  <div class="frame-sticky">
+    <span class="frame-label">MOMEN TAARUF</span>
+    <div class="frame-box" id="frameBox"></div>
+    <div class="frame-progress">
+      <span id="frameProgressText">01 / 11</span>
+      <div class="bar"><em id="frameProgressBar" style="width:9%"></em></div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT US -->
+<section id="about-us">
+  <div class="sec-head first">
+    <span class="eyebrow">TENTANG KAMI</span>
+    <h2>Kelompok Taaruf Kami</h2>
+  </div>
+  <div class="detail-card about-card" id="aboutCard">
+    <div class="detail-body">
+      <p class="detail-short">(Tulis deskripsi singkat tentang kelompok taaruf kalian di sini — asal mula, tujuan, atau kesan selama proses taaruf berlangsung.)</p>
+      <div class="member-tags" id="aboutTags"></div>
+    </div>
+    <div class="detail-media landscape">
+      <div class="ph-placeholder">FOTO KELOMPOK</div>
+      <button class="btn-outline more-only" onclick="toggleCard(this)">Lihat Selengkapnya ▾</button>
+    </div>
+    <div class="detail-extra">
+      <p>(Tulis cerita panjang perjalanan kelompok kalian di sini — bagaimana proses taaruf berjalan, hal berkesan, atau harapan ke depan.)</p>
+      <button class="btn-outline" onclick="toggleCard(this)">Lebih Sedikit ▴</button>
+    </div>
+  </div>
+</section>
+
+<!-- KOMISI -->
+<section id="komisi">
+  <div class="sec-head">
+    <span class="eyebrow">KOMISI</span>
+    <h2>Lima Divisi MPK</h2>
+    <p>Pilih salah satu divisi untuk melihat seluruh anggotanya, lalu buka giliran taaruf masing-masing.</p>
+  </div>
+  <div id="komisiContent"></div>
+  <div class="search-wrap">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="komisiSearch" type="text" placeholder="Cari nama atau nomor taaruf...">
+    </div>
+  </div>
+</section>
+
+<!-- TAARUF -->
+<section id="taaruf">
+  <div class="sec-head">
+    <span class="eyebrow">GILIRAN TAARUF</span>
+    <h2>Urutan Taaruf</h2>
+    <p>Setiap giliran berisi foto bersama, waktu pelaksanaan, tempat, dan mode (online/offline) sesi taaruf tersebut.</p>
+  </div>
+  <div id="taarufContent"></div>
+  <div class="search-wrap">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="taarufSearch" type="text" placeholder="Cari nama atau nomor taaruf...">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Laporan Taaruf MPK — 2026</span>
+  <span>Dibuat dengan Claude</span>
+</footer>
+
+<script>
+/* ============ DATA — sesuaikan/lengkapi bila ada perubahan ============ */
+const KOMISI = [
+  { id:1, key:'KOSTRAKUM', title:'Komisi Strategi dan Hukum' },
+  { id:2, key:'KOSTADIP', title:'Komisi Disiplin dan Pengawasan' },
+  { id:3, key:'KOASINTER', title:'Komisi Aspirasi dan Interaksi' },
+  { id:4, key:'KOWASEV', title:'Komisi Pengawasan dan Evaluasi' },
+  { id:5, key:'BPH & SENAT', title:'BPH & Senat' },
+  { id:6, key:'BARU', title:'Belum Ditentukan (Kelas XI)' },
+];
+
+const MEMBERS = [
+  // Komisi I - KOSTRAKUM
+  { id:'m02', name:'Nayla Zahra Setyawan', jabatan:'Koordinator', kelas:'XII FL6', komisi:1, taarufNo:8 },
+  { id:'m04', name:'Antonius Lionel Modesson K.', jabatan:'Anggota', kelas:'XI F7', komisi:1, taarufNo:11 },
+  { id:'m05', name:'Arzeta Mahariza', jabatan:'Anggota', kelas:'XI F5', komisi:1, taarufNo:5 },
+  { id:'m06', name:'Hafizha Khansa Noor Humaira', jabatan:'Anggota', kelas:'XI F8', komisi:1, taarufNo:5 },
+  { id:'m07', name:'Muna Kamiliya', jabatan:'Anggota', kelas:'XI F1', komisi:1, taarufNo:6 },
+  { id:'m08', name:'Aretha Faizah Maharani', jabatan:'Anggota', kelas:'XII FL9', komisi:1, taarufNo:9 },
+  // Komisi II - KOSTADIP
+  { id:'m10', name:'Aisyah Adya Atikah', jabatan:'Koordinator', kelas:'XII FL4', komisi:2, taarufNo:9 },
+  { id:'m12', name:'Najia Hayfa Nareswari', jabatan:'Anggota', kelas:'XI F7', komisi:2, taarufNo:2 },
+  { id:'m13', name:'Wijaya Prana', jabatan:'Anggota', kelas:'XI F8', komisi:2, taarufNo:3 },
+  { id:'m14', name:'Athilla Kemal Gibran', jabatan:'Anggota', kelas:'XI F1', komisi:2, taarufNo:2 },
+  { id:'m15', name:'Delila Fatmawati Azhar', jabatan:'Anggota', kelas:'XI F7', komisi:2, taarufNo:4 },
+  // Komisi III - KOASINTER
+  { id:'m17', name:'Jovanka Timur Andaru', jabatan:'Koordinator', kelas:'XII FL5', komisi:3, taarufNo:10 },
+  { id:'m20', name:'Ganendra Kenzie Alexisanov A.', jabatan:'Anggota', kelas:'XI F3', komisi:3, taarufNo:1 },
+  { id:'m21', name:'Diodava Alfarisy', jabatan:'Anggota', kelas:'XI F5', komisi:3, taarufNo:5 },
+  { id:'m22', name:'Acitya Salwa Putri Ratyadi', jabatan:'Anggota', kelas:'XI F1', komisi:3, taarufNo:1 },
+  { id:'m23', name:'Lativa Khalila Fauzi', jabatan:'Anggota', kelas:'XI F7', komisi:3, taarufNo:7 },
+  // Komisi IV - KOWASEV
+  { id:'m27', name:'Langit Ar Abrar Rafa Kurniawan', jabatan:'Anggota', kelas:'XI F8', komisi:4, taarufNo:3 },
+  { id:'m28', name:'Almira Ima Fauziyah', jabatan:'Anggota', kelas:'XI F3', komisi:4, taarufNo:4 },
+  { id:'m29', name:'Kevin Chaveezo Del Cannavaro', jabatan:'Anggota', kelas:'XI F9', komisi:4, taarufNo:3 },
+  { id:'m30', name:'Asyifa Regina Putri', jabatan:'Anggota', kelas:'XI F9', komisi:4, taarufNo:1 },
+  // BPH & Senat
+  { id:'m33', name:'Tiara Maharani Alvyta', jabatan:'Sekretaris II', kelas:'XI F6', komisi:5, taarufNo:2 },
+  { id:'m35', name:'Ferlita Khansa Mutiara', jabatan:'Bendahara I', kelas:'XI F6', komisi:5, taarufNo:7 },
+  { id:'m37', name:'Prastyo Tegar Dermawan', jabatan:'Senat Muda II', kelas:'XII FL1', komisi:5, taarufNo:8 },
+  { id:'m38', name:'Habib Saalim Abdullah', jabatan:'Senat Prima', kelas:'XII FL8', komisi:5, taarufNo:10 },
+  // Belum ditentukan - baru kelas XI
+  { id:'m39', name:'Destri Imtinah Pramudani', jabatan:'Calon Anggota', kelas:'XI', komisi:6, taarufNo:6 },
+  { id:'m40', name:'Theresia Widya Wistara', jabatan:'Calon Anggota', kelas:'XI', komisi:6, taarufNo:6 },
+];
+
+// members: {name tampil di jadwal, id anggota bila cocok dengan struktur komisi di atas / null bila belum ditemukan}
+const TAARUF = [
+  { no:1,  kelompok:'69', date:'Minggu, 30 Agustus 2026', time:'18.15 s.d 19.15 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mas Kenzie',id:'m20'},{name:'Mba Acit',id:'m22'},{name:'Mba Asyifa',id:'m30'}] },
+  { no:2,  kelompok:'69', date:'Senin, 31 Agustus 2026',  time:'14.40 s.d 15.40 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mas Gibran',id:'m14'},{name:'Mba Alvyta',id:'m33'},{name:'Mba Jia',id:null}] },
+  { no:3,  kelompok:'69', date:'Senin, 31 Agustus 2026',  time:'15.50 s.d 16.50 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mas Wijaya',id:'m13'},{name:'Mas Kevin',id:'m29'},{name:'Mas Langit',id:'m27'}] },
+  { no:4,  kelompok:'69', date:'Senin, 31 Agustus 2026',  time:'19.00 s.d 20.00 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mba Delila',id:'m15'},{name:'Mba Ima',id:'m28'}] },
+  { no:5,  kelompok:'69', date:'Kamis, 3 September 2026', time:'16.00 s.d 17.00 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mas Dio',id:'m21'},{name:'Mba Zeta',id:null},{name:'Mba Hafizha',id:'m06'}] },
+  { no:6,  kelompok:'69', date:'Kamis, 3 September 2026', time:'19.00 s.d 20.00 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mba Destri',id:null},{name:'Mba Theresia',id:null},{name:'Mba Muna',id:'m07'}] },
+  { no:7,  kelompok:'69', date:'Sabtu, 5 September 2026', time:'08.00 s.d 09.00 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mba Ferlita',id:'m35'},{name:'Mba Vava',id:null}] },
+  { no:8,  kelompok:'68', date:'Sabtu, 5 September 2026', time:'09.20 s.d 10.40 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mas Tegar',id:'m37'},{name:'Mba Nayla',id:'m02'}] },
+  { no:9,  kelompok:'68', date:'Sabtu, 5 September 2026', time:'13.00 s.d 14.00 WIB', mode:'Offline', place:'Ruang Rapat MPK', members:[{name:'Mba Aisyah',id:'m10'},{name:'Mba Aretha',id:'m08'}] },
+  { no:10, kelompok:'68', date:'Minggu, 6 September 2026',time:'08.00 s.d 09.00 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mas Habiib',id:'m38'},{name:'Mas Jovan',id:null}] },
+  { no:11, kelompok:'69', date:'Minggu, 6 September 2026',time:'13.00 s.d 14.00 WIB', mode:'Online',  place:'Google Meet', members:[{name:'Mas Lionel',id:'m04'}] },
+];
+
+/* ============ STATE ============ */
+const state = { komisiFilter:null, komisiSearch:'', taarufSearch:'' };
+document.getElementById('totalTaarufStat').textContent = String(TAARUF.length).padStart(2,'0');
+document.getElementById('aboutTags').innerHTML = MEMBERS.map(m => `<span class="chip">${m.name}</span>`).join('');
+
+/* ============ SHARED ============ */
+function toggleCard(btn){ btn.closest('.detail-card').classList.toggle('expanded'); }
+
+function goTo(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.scrollIntoView({ behavior:'smooth', block:'center' });
+  el.classList.add('flash');
+  setTimeout(() => el.classList.remove('flash'), 1500);
+}
+
+/* ============ RENDER: KOMISI ============ */
+function memberDetailCard(m){
+  const taarufBtn = m.taarufNo ? `<button class="btn-outline more-only" onclick="jumpToTaaruf(${m.taarufNo})">Taaruf ke-${m.taarufNo} →</button>` : '';
+  const firstName = m.name.split(' ')[0];
+  return `
+    <div class="detail-card" id="member-${m.id}">
+      <div class="detail-media portrait"><div class="ph-placeholder">FOTO</div></div>
+      <div class="detail-body">
+        <span class="eyebrow">${m.jabatan} · ${m.kelas}</span>
+        <h3>${m.name}</h3>
+        <p class="detail-short">(Tulis karakteristik singkat ${firstName} di sini.)</p>
+        <div class="detail-actions">
+          ${taarufBtn}
+          <button class="btn-outline more-only" onclick="toggleCard(this)">Selengkapnya ▾</button>
+        </div>
+        <div class="detail-extra">
+          <p>(Tulis cerita atau perkenalan lengkap ${firstName} di sini.)</p>
+          <button class="btn-outline" onclick="toggleCard(this)">Lebih Sedikit ▴</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderKomisi(){
+  const el = document.getElementById('komisiContent');
+  const term = state.komisiSearch.trim().toLowerCase();
+
+  if(term){
+    const results = MEMBERS.filter(m => m.name.toLowerCase().includes(term) || String(m.taarufNo) === term);
+    el.innerHTML = `
+      <button class="back-btn" onclick="clearKomisiSearch()">← Kembali ke semua divisi</button>
+      ${results.length ? `<div class="list-stack">${results.map(memberDetailCard).join('')}</div>` : `<p class="empty-note">Tidak ditemukan anggota dengan kata kunci tersebut.</p>`}
+    `;
+    return;
+  }
+
+  if(state.komisiFilter){
+    const k = KOMISI.find(x => x.id === state.komisiFilter);
+    const members = MEMBERS.filter(m => m.komisi === k.id);
+    el.innerHTML = `
+      <button class="back-btn" onclick="showKomisiGrid()">← Semua divisi</button>
+      <div class="sec-head" style="padding-top:0;border:none;margin-bottom:24px;">
+        <span class="eyebrow">${k.key}</span>
+        <h2 style="font-size:30px;">${k.title}</h2>
+      </div>
+      <div class="list-stack">${members.map(memberDetailCard).join('')}</div>
+    `;
+    return;
+  }
+
+  el.innerHTML = `<div class="komisi-grid">
+    ${KOMISI.map(k => `
+      <button class="komisi-box" onclick="showKomisiDetail(${k.id})">
+        <span class="num">${k.key}</span>
+        <h3>${k.title}</h3>
+        <span class="count">${MEMBERS.filter(m=>m.komisi===k.id).length} anggota</span>
+      </button>
+    `).join('')}
+  </div>`;
+}
+
+function showKomisiGrid(){ state.komisiFilter=null; state.komisiSearch=''; document.getElementById('komisiSearch').value=''; renderKomisi(); }
+function showKomisiDetail(id){ state.komisiFilter=id; renderKomisi(); }
+function clearKomisiSearch(){ state.komisiSearch=''; document.getElementById('komisiSearch').value=''; renderKomisi(); }
+document.getElementById('komisiSearch').addEventListener('input', (e) => { state.komisiSearch = e.target.value; renderKomisi(); });
+
+/* ============ RENDER: TAARUF ============ */
+function taarufDetailCard(t){
+  const chips = t.members.map(x => x.id
+    ? `<button class="chip-btn" onclick="jumpToMember('${x.id}')">${x.name} →</button>`
+    : `<span class="chip">${x.name}</span>`
+  ).join('');
+  return `
+    <div class="detail-card" id="taaruf-${t.no}">
+      <div class="detail-media landscape"><div class="ph-placeholder">FOTO BERSAMA<br>SESI TAARUF</div></div>
+      <div class="detail-body">
+        <span class="eyebrow">TAARUF KE-${String(t.no).padStart(2,'0')} · KELOMPOK ${t.kelompok}</span>
+        <h3>${t.date}</h3>
+        <p class="detail-short">${t.time} &middot; ${t.place} &middot; <em>${t.mode}</em></p>
+        <div class="chip-row">${chips}</div>
+        <div class="detail-actions">
+          <button class="btn-outline more-only" onclick="toggleCard(this)">Selengkapnya ▾</button>
+        </div>
+        <div class="detail-extra">
+          <p>(Tulis cerita atau catatan dari sesi taaruf ini di sini.)</p>
+          <button class="btn-outline" onclick="toggleCard(this)">Lebih Sedikit ▴</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function taarufMatches(t, term){
+  if(String(t.no) === term) return true;
+  return t.members.some(x => {
+    if(x.name.toLowerCase().includes(term)) return true;
+    if(x.id){ const m = MEMBERS.find(mm => mm.id === x.id); if(m && m.name.toLowerCase().includes(term)) return true; }
+    return false;
+  });
+}
+
+function renderTaaruf(){
+  const el = document.getElementById('taarufContent');
+  const term = state.taarufSearch.trim().toLowerCase();
+  let list = [...TAARUF].sort((a,b) => a.no - b.no);
+  if(term) list = list.filter(t => taarufMatches(t, term));
+  el.innerHTML = list.length ? `<div class="list-stack">${list.map(taarufDetailCard).join('')}</div>`
+    : `<p class="empty-note">Tidak ditemukan giliran taaruf dengan kata kunci tersebut.</p>`;
+}
+document.getElementById('taarufSearch').addEventListener('input', (e) => { state.taarufSearch = e.target.value; renderTaaruf(); });
+
+/* ============ CROSS-SECTION NAVIGATION ============ */
+function jumpToTaaruf(no){
+  state.taarufSearch=''; document.getElementById('taarufSearch').value='';
+  renderTaaruf();
+  requestAnimationFrame(() => setTimeout(() => goTo('taaruf-' + no), 50));
+}
+function jumpToMember(id){
+  const m = MEMBERS.find(x => x.id === id);
+  if(!m) return;
+  state.komisiFilter = m.komisi; state.komisiSearch='';
+  document.getElementById('komisiSearch').value='';
+  renderKomisi();
+  requestAnimationFrame(() => setTimeout(() => goTo('member-' + m.id), 50));
+}
+
+renderKomisi();
+renderTaaruf();
+
+/* ============ THEME TOGGLE ============ */
+const root = document.documentElement;
+const themeToggle = document.getElementById('themeToggle');
+function setDark(on){ root.classList.toggle('dark', on); localStorage.setItem('theme', on ? 'dark' : 'light'); }
+const savedTheme = localStorage.getItem('theme');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+setDark(savedTheme ? savedTheme === 'dark' : prefersDark);
+themeToggle.addEventListener('click', () => setDark(!root.classList.contains('dark')));
+themeToggle.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); setDark(!root.classList.contains('dark')); } });
+
+/* ============ HAMBURGER MENU ============ */
+const burger = document.getElementById('burgerBtn');
+const overlay = document.getElementById('menuOverlay');
+const closeBtn = document.getElementById('menuCloseBtn');
+function openMenu(){ overlay.classList.add('open'); burger.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+function closeMenu(){ overlay.classList.remove('open'); burger.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+burger.addEventListener('click', () => overlay.classList.contains('open') ? closeMenu() : openMenu());
+closeBtn.addEventListener('click', closeMenu);
+overlay.querySelectorAll('.menu-link').forEach(l => l.addEventListener('click', closeMenu));
+
+/* ============ PINNED PHOTO FRAME (11 foto) ============ */
+const FRAME_COUNT = 11;
+const framePin = document.getElementById('framePin');
+const frameBox = document.getElementById('frameBox');
+for(let i=0;i<FRAME_COUNT;i++){
+  const d = document.createElement('div');
+  d.className = 'frame-photo';
+  d.innerHTML = `<span>FOTO ${String(i+1).padStart(2,'0')}</span>`;
+  frameBox.appendChild(d);
+}
+framePin.style.height = (FRAME_COUNT * 55) + 'vh';
+const photos = Array.from(frameBox.children);
+const frameProgressText = document.getElementById('frameProgressText');
+const frameProgressBar = document.getElementById('frameProgressBar');
+function updateFrame(){
+  const rect = framePin.getBoundingClientRect();
+  const total = rect.height - window.innerHeight;
+  let progress = total > 0 ? -rect.top / total : 0;
+  progress = Math.min(Math.max(progress, 0), 1);
+  const idx = Math.min(photos.length - 1, Math.floor(progress * photos.length));
+  photos.forEach((p,i) => {
+    p.classList.remove('active','prev');
+    if(i === idx) p.classList.add('active');
+    else if(i < idx) p.classList.add('prev');
+  });
+  frameProgressText.textContent = String(idx+1).padStart(2,'0') + ' / ' + String(photos.length).padStart(2,'0');
+  frameProgressBar.style.width = (((idx+1)/photos.length)*100) + '%';
+}
+window.addEventListener('scroll', updateFrame);
+updateFrame();
+</script>
+
+</body>
+</html>
